@@ -1,16 +1,18 @@
 #include <iostream>
 using namespace std;
 
-// Function to count occurrences of the search key in the array
+// Function to count occurrences of the search key in the array using linear search
 int countOccurrences(int arr[], int size, int target) {
-    int count = 0;
-    // Loop through the array to count occurrences of the target
-    for(int i = 0; i < size; i++) {
-        if(arr[i] == target) {
-            count++; // Increment count if the target is found
+    int count = 0;  // Variable to store the count of occurrences
+
+    // Loop through the array to find the target and count its occurrences
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            count++;  // Increment the count if the target matches
         }
     }
-    return count;
+
+    return count;  // Return the total count of occurrences
 }
 
 int main() {
@@ -20,12 +22,12 @@ int main() {
     cout << "Enter the number of elements in the array: ";
     cin >> size;
 
-    // Declare an array of given size
+    // Declare an array of the given size
     int arr[size];
 
     // Read array elements from the user
     cout << "Enter " << size << " elements:" << endl;
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         cin >> arr[i];
     }
 
@@ -33,11 +35,11 @@ int main() {
     cout << "Enter the element to search for: ";
     cin >> target;
 
-    // Count the occurrences of the target
+    // Call the linear search function to count occurrences of the target
     int occurrences = countOccurrences(arr, size, target);
 
     // Display the result
-    if(occurrences > 0) {
+    if (occurrences > 0) {
         cout << "Element " << target << " appears " << occurrences << " times in the array." << endl;
     } else {
         cout << "Element " << target << " does not appear in the array." << endl;

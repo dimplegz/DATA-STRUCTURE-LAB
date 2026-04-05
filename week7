@@ -1,0 +1,114 @@
+#include <iostream>
+using namespace std;
+
+// Define the structure for a linked list node
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Function to create a new node
+Node* createNode(int value) {
+    Node* newNode = new Node();
+    newNode->data = value;
+    newNode->next = nullptr;
+    return newNode;
+}
+
+// Function to insert a node at the beginning
+void insertAtBeginning(Node*& head, int value) {
+    Node* newNode = createNode(value);
+    newNode->next = head;  // Make new node's next point to the current head
+    head = newNode;        // Update head to the new node
+}
+
+// Function to insert a node at the end
+void insertAtEnd(Node*& head, int value) {
+    Node* newNode = createNode(value);
+    if (head == nullptr) {
+        head = newNode;  // If the list is empty, make the new node the head
+        return;
+    }
+
+    // Traverse to the last node
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+
+    // Link the last node to the new node
+    temp->next = newNode;
+}
+
+// Function to insert a node at a specific position
+void insertAtPosition(Node*& head, int value, int position) {
+    if (position < 1) {
+        cout << "Position should be greater than or equal to 1." << endl;
+        return;
+    }
+
+    Node* newNode = createNode(value);
+    
+    // If inserting at the beginning (position 1)
+    if (position == 1) {
+        newNode->next = head;
+        head = newNode;
+        return;
+    }
+
+    // Traverse to the node just before the specified position
+    Node* temp = head;
+    int currentPosition = 1;
+    while (temp != nullptr && currentPosition < position - 1) {
+        temp = temp->next;
+        currentPosition++;
+    }
+
+    // If position is greater than the number of nodes in the list
+    if (temp == nullptr) {
+        cout << "Position out of bounds!" << endl;
+        return;
+    }
+
+    // Insert the new node at the given position
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    Node* temp = head;
+    cout << "Linked List: ";
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    // Initial insertion at the beginning
+    insertAtBeginning(head, 10);  // Insert 10 at the beginning
+    insertAtBeginning(head, 20);  // Insert 20 at the beginning
+    insertAtBeginning(head, 30);  // Insert 30 at the beginning
+    printList(head);
+
+    // Insert at the end
+    insertAtEnd(head, 40);        // Insert 40 at the end
+    insertAtEnd(head, 50);        // Insert 50 at the end
+    printList(head);
+
+    // Insert at a specific position
+    insertAtPosition(head, 25, 3);  // Insert 25 at position 3
+    printList(head);
+
+    insertAtPosition(head, 5, 1);   // Insert 5 at position 1
+    printList(head);
+
+    insertAtPosition(head, 35, 7);  // Insert 35 at position 7 (out of bounds)
+    printList(head);
+
+    return 0;
+}

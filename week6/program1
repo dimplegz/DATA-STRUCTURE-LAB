@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+// Define the structure for the linked list node
+struct Node {
+    int data;       // Data part of the node
+    Node* next;     // Pointer to the next node
+};
+
+// Function to create a new node
+Node* createNode(int value) {
+    Node* newNode = new Node();  // Dynamically allocate memory for a new node
+    newNode->data = value;       // Assign the value to the new node
+    newNode->next = nullptr;     // Initially set the next pointer to null (end of list)
+    return newNode;
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    Node* current = head;
+    while (current != nullptr) {
+        cout << current->data << " ";  // Print the data of the current node
+        current = current->next;      // Move to the next node
+    }
+    cout << endl;
+}
+
+int main() {
+    int n;
+    cout << "Enter the number of nodes you want to create: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "The number of nodes must be positive!" << endl;
+        return 1;  // Exit the program
+    }
+
+    Node* head = nullptr;  // Pointer to the head of the list
+    Node* tail = nullptr;  // Pointer to the tail of the list
+
+    // Create nodes based on user input
+    for (int i = 0; i < n; i++) {
+        int value;
+        cout << "Enter data for node " << i + 1 << ": ";
+        cin >> value;
+
+        // Create a new node with the input value
+        Node* newNode = createNode(value);
+
+        // If the list is empty, the new node will be both head and tail
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            // Add the new node to the end of the list
+            tail->next = newNode;
+            tail = newNode;  // Update the tail pointer to the new node
+        }
+    }
+
+    // Print the linked list
+    cout << "The linked list is: ";
+    printList(head);
+
+    // Free the dynamically allocated memory
+    Node* current = head;
+    while (current != nullptr) {
+        Node* toDelete = current;
+        current = current->next;
+        delete toDelete;  // Free the current node
+    }
+
+    return 0;
+}
